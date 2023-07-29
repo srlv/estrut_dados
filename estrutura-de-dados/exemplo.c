@@ -24,10 +24,5 @@ int main(void){
 	printf("vetor ={%2d%2d%2d}", vetor[0], vetor[1], vetor[2]);
 	free(vetor);
 	
-	return 0;
-	
-	
-	
-	
-	
+	return 0;	
 }
