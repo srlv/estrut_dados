@@ -14,6 +14,7 @@ com o menor salário.*/
 #include <stdlib.h>
 #include <locale.h>
 
+// Definição da estrutura "funcionarios" que armazena informações sobre um funcionário
 typedef struct funcionarios {
     char nome[20];
     float salario;
@@ -21,6 +22,7 @@ typedef struct funcionarios {
     char cargo[20];
 } funcionario;
 
+// Função para coletar dados de um funcionário
 void dados(funcionario* rgt) {
     printf("Informe seu nome: ");
     scanf(" %[^\n]", rgt->nome);
@@ -35,6 +37,7 @@ void dados(funcionario* rgt) {
     scanf(" %[^\n]", rgt->cargo);
 }
 
+// Função para imprimir os dados de um funcionário
 void imprimirDados(const funcionario* func) {
     printf("Nome: %s\n", func->nome);
     printf("Salário: %.2f\n", func->salario);
@@ -42,10 +45,12 @@ void imprimirDados(const funcionario* func) {
     printf("Cargo: %s\n", func->cargo);
 }
 
+// Função para alterar o salário de um funcionário
 void alterarSalario(funcionario* func, float novoSalario) {
     func->salario = novoSalario;
 }
 
+// Função para encontrar o funcionário com maior e menor salário
 void maiorslremenorslr(const funcionario* funcionarios, int tamanho) {
     int indiceMaiorSalario = 0;
     int indiceMenorSalario = 0;
@@ -70,9 +75,10 @@ int main(void) {
     setlocale(LC_ALL, "portuguese");
 
     int quantidade;
-    printf("Digite a quantidade de funcionários:\n ");
+    printf("Digite a quantidade de funcionários: ");
     scanf("%d", &quantidade);
 
+    // Alocação dinâmica de memória para o vetor de funcionários
     funcionario* funcionarios = (funcionario*)malloc(quantidade * sizeof(funcionario));
 
     for (int i = 0; i < quantidade; i++) {
@@ -80,21 +86,26 @@ int main(void) {
         dados(&funcionarios[i]);
     }
 
+    // Encontra e imprime o funcionário com maior e menor salário
     maiorslremenorslr(funcionarios, quantidade);
 
     int altera_salario;
-    printf("Digite o identificador do funcionário para alterar o salário:\n ");
+    printf("Digite o identificador do funcionário para alterar o salário: ");
     scanf("%d", &altera_salario);
 
     float novoslr;
-    printf("Digite o novo salário:\n ");
+    printf("Digite o novo salário: ");
     scanf("%f", &novoslr);
 
+    // Altera o salário do funcionário escolhido
     alterarSalario(&funcionarios[altera_salario], novoslr);
 
+    // Imprime os dados atualizados do funcionário escolhido
     printf("Dados atualizados do funcionário:\n");
     imprimirDados(&funcionarios[altera_salario]);
 
+    // Libera a memória alocada para o vetor de funcionários
     free(funcionarios);
+
     return 0;
 }
