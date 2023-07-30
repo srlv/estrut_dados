@@ -14,33 +14,38 @@ o nome da Pessoa mais velha e mais nova. */
 #include <stdlib.h>
 #include <locale.h>
 
+// Definição da estrutura "dados_p" que armazena informações sobre uma pessoa
 typedef struct dados_p {
     char nome[20];
     int ndocumento;
     int idade;
 } dados;
 
+// Função para coletar dados de uma pessoa
 void pessoa(dados* rgt) {
-    printf("Informe seu nome:\n ");
+    printf("Informe seu nome: ");
     scanf(" %[^\n]", rgt->nome);
 
-    printf("Informe o número do seu documento:\n ");
-    scanf("%d", &rgt->ndocumento);
+    printf("Informe o número do seu documento: ");
+    scanf("%d", &(rgt->ndocumento));
 
-    printf("Informe sua idade:\n ");
-    scanf("%d", &rgt->idade);
+    printf("Informe sua idade: ");
+    scanf("%d", &(rgt->idade));
 }
 
+// Função para imprimir os dados de uma pessoa
 void imprimirDados(dados* func) {
     printf("Nome: %s\n", func->nome);
     printf("Número do documento: %d\n", func->ndocumento);
     printf("Idade: %d\n", func->idade);
 }
 
+// Função para alterar a idade de uma pessoa
 void alteraridade(dados* func, int novaidade) {
     func->idade = novaidade;
 }
 
+// Função para encontrar a pessoa com maior e menor idade
 void maioridemenorid(dados* dados, int tamanho) {
     int maioridade = 0;
     int menoridade = 0;
@@ -65,9 +70,10 @@ int main(void) {
     setlocale(LC_ALL, "portuguese");
 
     int quantidade;
-    printf("Digite a quantidade de pessoas:\n ");
+    printf("Digite a quantidade de pessoas: ");
     scanf("%d", &quantidade);
 
+    // Alocação dinâmica de memória para o vetor de pessoas
     dados* ps = (dados*)malloc(quantidade * sizeof(dados));
 
     for (int i = 0; i < quantidade; i++) {
@@ -75,21 +81,25 @@ int main(void) {
         pessoa(&ps[i]);
     }
 
+    // Encontra e imprime a pessoa com maior e menor idade
     maioridemenorid(ps, quantidade);
 
     int altera_idade;
-    printf("Digite o número do documento da pessoa para alterar a idade:\n ");
+    printf("Digite o número do documento da pessoa para alterar a idade: ");
     scanf("%d", &altera_idade);
 
     int novaidade;
-    printf("Digite a nova idade:\n ");
+    printf("Digite a nova idade: ");
     scanf("%d", &novaidade);
 
+    // Altera a idade da pessoa escolhida
     alteraridade(&ps[altera_idade], novaidade);
 
+    // Imprime os dados atualizados da pessoa escolhida
     printf("Dados atualizados da pessoa:\n");
     imprimirDados(&ps[altera_idade]);
 
+    // Libera a memória alocada para o vetor de pessoas
     free(ps);
     return 0;
 }
