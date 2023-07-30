@@ -20,40 +20,53 @@ Observação: O programa deve ser capaz de armazenar até 100 nomes completos.*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+
 int main(void) {
-	setlocale(LC_ALL,"portuguese");
+    setlocale(LC_ALL, "portuguese");
+
     int np, c;
-    printf("informe a quantidade de pessoas: ");
+
+    // Solicita ao usuário a quantidade de pessoas a serem cadastradas
+    printf("Informe a quantidade de pessoas: ");
     scanf("%d", &np);
-    getchar(); 
+    getchar(); // Limpa o buffer do teclado
+
+    // Alocação dinâmica de memória para os vetores de nomes e idades
     char **nomes = (char**)malloc(np * sizeof(char*));
     int *idade = (int*)malloc(np * sizeof(int));
     if (nomes == NULL || idade == NULL) {
         printf("Erro de alocação de memória\n");
         exit(1);
+    } else {
+        printf("Memória alocada com sucesso\n");
     }
-     else{
-     	 printf("memória alocada com sucesso\n");
-	 }
-    for (int c = 0; c <np; c++) {
+
+    // Coleta os nomes e idades das pessoas digitados pelo usuário
+    for (int c = 0; c < np; c++) {
         nomes[c] = (char*)malloc(100 * sizeof(char));
         if (nomes[c] == NULL) {
             printf("Erro de alocação de memória.\n");
             exit(1);
         }
         printf("Digite o nome da pessoa %d: ", c + 1);
-        fgets(nomes[c], 100, stdin);
+        fgets(nomes[c], 100, stdin); // Lê o nome da pessoa até 100 caracteres, incluindo espaços
         printf("Digite a idade da pessoa %d: ", c + 1);
         scanf("%d", &idade[c]);
-        getchar(); 
+        getchar(); // Limpa o buffer do teclado
     }
-    printf("os nomes e idades são:\n");
-    for (int c = 0; c <np; c++) {
+
+    // Imprime os nomes e idades das pessoas cadastradas
+    printf("Os nomes e idades são:\n");
+    for (int c = 0; c < np; c++) {
         printf("%sIdade: %d\n", nomes[c], idade[c]);
     }
-    for (int c = 0; c <np; c++) {
+
+    // Libera a memória alocada para cada nome da pessoa
+    for (int c = 0; c < np; c++) {
         free(nomes[c]);
     }
+
+    // Libera a memória alocada para o vetor de nomes e o vetor de idades
     free(nomes);
     free(idade);
 
