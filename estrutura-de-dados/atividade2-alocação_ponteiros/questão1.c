@@ -12,48 +12,67 @@ gostaram do produto.*/
  
 //Resolução:
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<locale.h>
-int main(void){
-	setlocale(LC_ALL,"portuguese");
-	int np, c;
-	int cf=0,cm=0;
-	float pm,pf;
-	printf("informe a quantidade de pessoas pesquisadas ");
-	scanf("%d",&np);
-	char *sexo=(char*)malloc(np * sizeof(char));
-    char *op=(char*)malloc(np * sizeof(char));
-	if(sexo==NULL&&op==NULL){
-		printf("erro de memória\n");
-		return 1;
-	}
-	else{
-	printf("memória alocada\n");
-	}
-     for (c = 0; c <np; c++) {
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+int main(void) {
+    setlocale(LC_ALL, "portuguese");
+
+    
+    int np, c;
+    int cf = 0, cm = 0;
+    float pm, pf; 
+
+   
+    printf("Informe a quantidade de pessoas pesquisadas: ");
+    scanf("%d", &np);
+
+    // Alocação dinâmica de memória para armazenar as respostas de sexo e opinião
+    char *sexo = (char*)malloc(np * sizeof(char));
+    char *op = (char*)malloc(np * sizeof(char));
+
+    // Verificação se houve erro na alocação de memória
+    if (sexo == NULL && op == NULL) {
+        printf("Erro de memória ao alocar os vetores.\n");
+        return 1;
+    } else {
+        printf("Memória alocada com sucesso.\n");
+    }
+
+    // Loop para coletar as respostas dos participantes
+    for (c = 0; c < np; c++) {
         printf("Resposta %d\n", c + 1);
 
+        // Coleta do sexo da pessoa (M ou F)
         printf("Sexo (M/F): ");
         scanf(" %c", &sexo[c]);
 
-        printf("Opinião g (gostou) n (não gostou): ");
+        // Coleta da opinião da pessoa (gostou ou não gostou)
+        printf("Opinião (g/n): ");
         scanf(" %c", &op[c]);
     }
-     for (c = 0; c <np; c++) {
+
+    // Loop para contar quantas mulheres gostaram (cf) e quantos homens não gostaram (cm)
+    for (c = 0; c < np; c++) {
         if (sexo[c] == 'F' && op[c] == 'g') {
             cf++;
-        } 
-		else if (sexo[c] == 'M' && op[c] == 'n') {
+        } else if (sexo[c] == 'M' && op[c] == 'n') {
             cm++;
         }
-        pf=((cf*100)/np);
-        pm=((cm*100)/np);
     }
-    printf("a quantidade de pessoas do sexo feminino que gostaram são: %.2f%%\n",pf);
-    printf("a quantidade de pessoas do sexo masculino que não gostaram são %.2f%%\n",pm);
- free(op);
- free(sexo);
- 
-	return 0;
+
+    // Cálculo das porcentagens de mulheres que gostaram (pf) e homens que não gostaram (pm)
+    pf = ((cf * 100) / (float)np);
+    pm = ((cm * 100) / (float)np);
+
+    // Impressão dos resultados
+    printf("A quantidade de pessoas do sexo feminino que gostaram é: %.2f%%\n", pf);
+    printf("A quantidade de pessoas do sexo masculino que não gostaram é: %.2f%%\n", pm);
+
+    // Liberação da memória alocada dinamicamente
+    free(op);
+    free(sexo);
+
+    return 0;
 }
