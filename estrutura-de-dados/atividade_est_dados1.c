@@ -1,62 +1,61 @@
+/*Faça um programa em C que solicita ao usuário informações de funcionários via teclado. As informações digitadas pelo o usuário são: id, nome e salário do funcionário. Armazene as informações
+digitadas pelo usuário em um arquivo texto.*/
+
+//resolução:
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
 
-// Definição da estrutura "funcionarios" que armazena informações sobre um funcionário
 typedef struct funcionarios {
-    char nome[20];
-    float salario;
-    int identificador;
-    char cargo[20];
-} funcionario;
+    char nome[40];
+    int id;
+    float slr;
+} func;
 
-// Função para coletar dados de um funcionário
-void dados(funcionario* rgt) {
-    printf("Informe seu nome: ");
+void registro(func *rgt) {
+    printf("Informe seu nome:\n ");
     scanf(" %[^\n]", rgt->nome);
 
-    printf("Informe seu salário: ");
-    scanf("%f", &(rgt->salario));
+    printf("Informe seu id:\n ");
+    scanf("%d", &rgt->id);
 
-    printf("Informe seu identificador: ");
-    scanf("%d", &(rgt->identificador));
-
-    printf("Informe seu cargo: ");
-    scanf(" %[^\n]", rgt->cargo);
+    printf("Informe seu salário:\n ");
+    scanf("%f", &rgt->slr);
 }
-
-// Função para imprimir os dados de um funcionário
-void imprimirDados(const funcionario* func) {
-    printf("Nome: %s\n", func->nome);
-    printf("Salário: %.2f\n", func->salario);
-    printf("Identificador: %d\n", func->identificador);
-    printf("Cargo: %s\n", func->cargo);
-}
-
-
 
 int main(void) {
     setlocale(LC_ALL, "portuguese");
-
-    int quantidade;
-    printf("Digite a quantidade de funcionários: ");
-    scanf("%d", &quantidade);
-
-    funcionario* funcionarios = (funcionario*)malloc(quantidade * sizeof(funcionario));
-
-    for (int i = 0; i < quantidade; i++) {
-        printf("Preenchendo dados do funcionário %d:\n", i + 1);
-        dados(&funcionarios[i]);
-        
-       
+    
+    FILE *arquivo;
+    arquivo = fopen("funcionarios.txt", "w");
+    if (arquivo == NULL) {
+        printf("ERRO AO ABRIR ARQUIVO");
+        return 1;
     }
 
-  
-  
-   
-   
-   
-    // Libera a memória alocada para o vetor de funcionários
+    int np;
+    printf("Informe o número de funcionários: ");
+    scanf("%d", &np);
+
+    func *funcionarios = (func *)malloc(np * sizeof(func));
+    if (funcionarios == NULL) {
+        printf("Erro ao alocar memória\n");
+        return 1;
+    }
+
+    for (int i = 0; i < np; i++) {
+        printf("\nRegistro do funcionário %d:\n", i + 1);
+        registro(&funcionarios[i]);
+
+        fprintf(arquivo, "Funcionário %d:\n", i + 1);
+        fprintf(arquivo, "Nome: %s\n", funcionarios[i].nome);
+        fprintf(arquivo, "ID: %d\n", funcionarios[i].id);
+        fprintf(arquivo, "Salário: %.2f reais\n\n", funcionarios[i].slr);
+    }
+
+    fclose(arquivo);
+
     free(funcionarios);
 
     return 0;
