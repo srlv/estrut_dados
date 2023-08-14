@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include<ponto.h>
+#include"ponto.h"
 int main(void){
     ponto* p = pto_cria(2.0,1.0);
     ponto* q = pto_cria(3.4,2.1);
