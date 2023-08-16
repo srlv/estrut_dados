@@ -8,9 +8,9 @@ struct contabancaria{
     char titular[40];
     int numero;
     float saldo;
-}
+};
 
-contabancaria*criaconta(char *titular, int numero, float saldo)
+contabancaria*criaconta(char *titular, int numero, float saldo){
     contabancaria*contas=(contabancaria*)malloc(sizeof(contabancaria));
 
       if(contas==NULL){
@@ -26,7 +26,7 @@ contabancaria*criaconta(char *titular, int numero, float saldo)
     strcpy (contas->titular, titular);
 
     return contas;
-
+}
 
 void deposita(contabancaria*contas, float novoslr){
     contas->saldo+=novoslr;
