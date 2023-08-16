@@ -1,11 +1,22 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include"contabancaria"
+#include"contabancaria.h"
 
-contabancaria*criaconta(char *titular, int numero, float saldo){
-    conta*contas(conta*)=malloc(sizeof(conta));
-    if(contas==NULL){
+
+struct contabancaria{
+    char titular[40];
+    int numero;
+    float saldo;
+}
+
+contabancaria*criaconta(char *titular, int numero, float saldo)
+    contabancaria*contas=(contabancaria*)malloc(sizeof(contabancaria));
+
+      if(contas==NULL){
+
+       
+     
         printf("memoria insuficiente\n");
         exit(1);
     }
@@ -14,35 +25,31 @@ contabancaria*criaconta(char *titular, int numero, float saldo){
      
     strcpy (contas->titular, titular);
 
-    return(contas);
-}
+    return contas;
 
-void deposita(contas*contas, float novoslr){
+
+void deposita(contabancaria*contas, float novoslr){
     contas->saldo+=novoslr;
 }
-void saca(contas*contas, float nsaldo ){
+void saca(contabancaria*contas, float nsaldo ){
     contas->saldo+=nsaldo;
 
    if(contas->saldo>0 && contas->saldo<100000){
     printf("volor suficiente para saque\n");
    }    
 }
-void transfere(contas*contas, float transferencia){
+void transfere(contabancaria*contas, float transferencia){
     contas->saldo+=transferencia;
 
     if(contas->saldo>0 && contas->saldo<10000){
         printf("saldo disponivel para transferencia");
     }
 }
-float saldo(contas*contas){
+float saldo(contabancaria*contas){
    float st = contas->saldo;
     return st;
 }
 
-void excluiconta(conta*contas){
+void excluiconta(contabancaria*contas){
     free(contas);
 }
-
-
-
-
