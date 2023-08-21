@@ -15,3 +15,20 @@ return max; // uma vez c6
 */
 
 
+
+
+void insertionsort(int arr [], int n){
+    int i, key, j; // uma vez c1
+    for(i=1;i<n; i++){// n-1 vezes c2
+        key =arr[i];// uma vez c3
+        j=i-1;// uma vez c4
+        while (j>=0 && arr[j]> key ){// n+1*n-1 vezes c5
+            arr[j+1]=arr[j];// n vezes c6
+            j=j-1;// uma vez c7
+        }
+        arr[j+1]=key;// uma vez c8
+    }
+}
+
+
+
