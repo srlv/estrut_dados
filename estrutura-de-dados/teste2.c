@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char* concatenarStrings(const char* string1, const char* string2) {
+char* concatenarStrings(char* string1, char* string2) {
     int tamanho1 = strlen(string1);
     int tamanho2 = strlen(string2);
 
@@ -20,8 +20,8 @@ char* concatenarStrings(const char* string1, const char* string2) {
 }
 
 int main(void) {
-    const char* str1 = "Olá, ";
-    const char* str2 = "Mundo!";
+    char str1[] = "Olá, ";
+    char str2[] = "Mundo!";
     
     char* resultado = concatenarStrings(str1, str2);
 
